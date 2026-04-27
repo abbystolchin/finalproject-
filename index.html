@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What's in Onondaga County's Water?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue-dark: #0a1628;
+      --blue-mid: #1a3a5c;
+      --blue-light: #2e6da4;
+      --accent: #e8a020;
+      --accent-red: #c0392b;
+      --off-white: #f4f1eb;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --border: #d0ccc4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--off-white);
+      color: var(--text);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* HEADER */
+    header {
+      background-color: var(--blue-dark);
+      color: white;
+      padding: 60px 20px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.02) 40px,
+        rgba(255,255,255,0.02) 41px
+      );
+    }
+
+    .kicker {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      max-width: 760px;
+      margin: 0 auto 20px;
+      color: white;
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    .deck {
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.75);
+      max-width: 580px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    .byline {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 20px 20px 80px;
+    }
+
+    /* STAT BAR */
+    .stat-bar {
+      display: flex;
+      gap: 0;
+      margin: 48px 0;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 24px 20px;
+      text-align: center;
+      background: white;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--blue-mid);
+      display: block;
+    }
+
+    .stat-number.red { color: var(--accent-red); }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* PROSE */
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 1.4em;
+      color: var(--text);
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--blue-mid);
+    }
+
+    /* SECTION LABELS */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 48px 0 6px;
+      display: block;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+
+    /* CALLOUT BOX */
+    .callout {
+      border-left: 4px solid var(--accent-red);
+      background: white;
+      padding: 24px 28px;
+      margin: 36px 0;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .callout-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-red);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 1rem;
+      font-style: italic;
+      color: #333;
+    }
+
+    /* CHART WRAPPER */
+    .chart-wrap {
+      margin: 36px 0 48px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .chart-wrap iframe {
+      width: 100%;
+      display: block;
+      border: none;
+    }
+
+    /* DIVIDER */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* METHODOLOGY */
+    .methodology {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      border-radius: 2px;
+      margin-top: 60px;
+    }
+
+    .methodology h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 10px;
+    }
+
+    .methodology p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .stat-bar { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="kicker">Onondaga County &nbsp;·&nbsp; Drinking Water &nbsp;·&nbsp; 2024</p>
+    <h1>What's Actually in <span>Onondaga County's</span> Water?</h1>
+    <p class="deck">35 violations were recorded across local water systems in 2024. Some are just paperwork. Others aren't.</p>
+    <p class="byline">By Abby Tolchin &nbsp;·&nbsp; April, 2026</p>
+  </header>
+
+  <main>
+
+    <!-- STAT BAR -->
+    <div class="stat-bar">
+      <div class="stat">
+        <span class="stat-number">35</span>
+        <span class="stat-label">Total Violations</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">20</span>
+        <span class="stat-label">Community Systems Affected</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number red">1</span>
+        <span class="stat-label">PFOS Contamination</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Resolved by Year End</span>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <p>Most people don't think twice about turning on the tap. But in 2024, water systems across Onondaga County, from mobile home parks to village utilities to your local brewery, racked up 35 violations of state and federal drinking water standards. Some of them are pretty mundane. Others are genuinely concerning.</p>
+
+    <p>The data comes from the <strong>New York State Department of Health</strong>, which tracks every time a water system fails to meet safety requirements, whether that's missing a monitoring deadline, filing paperwork late, or actually having something dangerous in the water.</p>
+
+    <!-- CHART 1 -->
+    <span class="section-label">By the numbers</span>
+    <h2>Which Systems Had the Most Violations?</h2>
+
+    <div class="chart-wrap">
+      <iframe title="Onondaga County Water Violations by System, 2024" aria-label="Bar Chart" id="datawrapper-chart-BeFNy" src="https://datawrapper.dwcdn.net/BeFNy/1/" scrolling="no" height="400"></iframe>
+    </div>
+
+    <!-- PFOS CALLOUT -->
+    <div class="callout">
+      <span class="callout-label">⚠ Key Finding</span>
+      <p>Rolling Hills Community LLC, a mobile home park in Onondaga County, tested positive for PFOS, a "forever chemical" linked to cancer, thyroid disease, and immune system damage. Residents were drinking water above the legal limit before corrective action was taken.</p>
+    </div>
+
+    <p>The one that stands out most is <strong>Rolling Hills Community LLC</strong>, a mobile home park that tested positive for <strong>PFOS</strong> — one of the so-called "forever chemicals" that have been turning up in water supplies across New York for years. These chemicals don't break down in the environment or in your body, and they've been linked to cancer, thyroid disease, and a weakened immune system. Rolling Hills logged the violation in early 2024, and the state says corrective action was taken — but residents were drinking water above the legal limit before that happened.</p>
+
+    <p><strong>Syracuse City's water system</strong> also showed up in the data, flagged for not properly monitoring for <strong>1,4-dioxane</strong>, a likely carcinogen that's been found across New York State. That one has since been resolved.</p>
+
+    <!-- CHART 2 -->
+    <span class="section-label">Resolution status</span>
+    <h2>Were the Violations Fixed?</h2>
+
+    <div class="chart-wrap">
+      <iframe title="Most Onondaga County Water Violations Were Resolved in 2024" aria-label="Donut Chart" id="datawrapper-chart-RSgxc" src="https://datawrapper.dwcdn.net/RSgxc/1/" scrolling="no" height="400"></iframe>
+    </div>
+
+    <p>Here's the silver lining: every violation in the county was eventually resolved or had corrective action taken by the end of the year. Nothing is listed as still open. But "resolved" doesn't mean it never happened — it just means the water system fixed the problem or came back into compliance. For residents at Rolling Hills, the damage, if any, was already done.</p>
+
+    <!-- CHART 3 -->
+    <span class="section-label">Who's affected</span>
+    <h2>Community Systems vs. Transient Systems</h2>
+
+    <div class="chart-wrap">
+      <iframe title="Community Water Systems Accounted for Most Onondaga Violations in 2024" aria-label="Bar Chart" id="datawrapper-chart-XAvbF" src="https://datawrapper.dwcdn.net/XAvbF/1/" scrolling="no" height="300"></iframe>
+    </div>
+
+    <p>The majority of violations — <strong>20 out of 35</strong> — came from community water systems, meaning the kind that serve actual residents year-round, not just people grabbing a coffee at a gas station. That's the category that matters most for public health, and it's where the PFOS and disinfection byproduct issues showed up.</p>
+
+    <p>A big chunk of the remaining violations were <strong>operations report failures</strong> — basically water systems that didn't file required paperwork on time. Places like Vesper Hills Golf Club, Wildwood Event Center, and a handful of local restaurants and stores fell into this category. It's not great, but it's a very different problem than having toxins in the water.</p>
+
+    <!-- CHART 4 -->
+    <span class="section-label">Full breakdown</span>
+    <h2>Community Water Systems With Violations</h2>
+
+    <div class="chart-wrap">
+      <iframe title="Onondaga County Community Water Systems With Violations, 2024" aria-label="Table" id="datawrapper-chart-rpyN7" src="https://datawrapper.dwcdn.net/rpyN7/1/" scrolling="no" height="500"></iframe>
+    </div>
+
+    <p>The bigger picture here isn't that Onondaga County's water is in crisis — it's not. But the data is a reminder that the systems delivering water to your home aren't perfect, and that smaller, private water systems like mobile home parks often fly under the radar until something goes wrong.</p>
+
+    <hr>
+
+    <!-- METHODOLOGY -->
+    <div class="methodology">
+      <h3>Methodology & Data</h3>
+      <p>Data for this project comes from the New York State Department of Health's drinking water violations database. Records reflect violations logged in 2024 for water systems in Onondaga County. Violation types, contaminants, and resolution statuses are as reported by the state. Analysis was conducted in Google Sheets. Charts were built using Datawrapper.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Data: New York State Department of Health &nbsp;·&nbsp; Charts: Datawrapper &nbsp;·&nbsp; [Your Name], Syracuse University Newhouse School</p>
+  </footer>
+
+  <!-- Datawrapper responsive script -->
+  <script>
+    window.addEventListener('message', function(e) {
+      if (typeof e.data['datawrapper-height'] !== 'undefined') {
+        var iframes = document.querySelectorAll('iframe');
+        for (var i = 0; i < iframes.length; i++) {
+          if (iframes[i].contentWindow === e.source) {
+            iframes[i].style.height = e.data['datawrapper-height'][iframes[i].id] + 'px';
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
